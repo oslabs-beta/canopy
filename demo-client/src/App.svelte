@@ -1,9 +1,7 @@
 <script>
 	export let clickCount = 0;
 	export let textInput = 'Enter Text in \'Input Text\'';
-	export const list = [];
-
-	$: localList = list; 
+	export let list = [];
 
 	function handleCount () {
 		clickCount++;
@@ -14,11 +12,9 @@
 	};
 
 	function handleListAdd () {
-		console.log(textInput);
 		list.push(textInput);
-		console.log(list);
+		list = list;
 	}
-
 </script>
 
 <main>
@@ -30,7 +26,7 @@
 	<br><br>
 	<button on:click={handleListAdd}>Add Text to List</button>
 	<ul>
-		{#each localList as listItem (listItem)}
+		{#each list as listItem, i (i)}
 			<li>{listItem}</li>
 		{/each}
 	</ul>
@@ -41,5 +37,7 @@
 		width: fit-content;
 		height: fit-content;
 		text-align: center;
+		background-color: greenyellow;
+		padding: 50px;
 	}
 </style>
