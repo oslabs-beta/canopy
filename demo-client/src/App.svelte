@@ -1,30 +1,45 @@
 <script>
-	export let name;
+	export let clickCount = 0;
+	export let textInput = 'Enter Text in \'Input Text\'';
+	export const list = [];
+
+	$: localList = list; 
+
+	function handleCount () {
+		clickCount++;
+	};
+
+	function handleText (e) {
+		textInput = e.target.value;
+	};
+
+	function handleListAdd () {
+		console.log(textInput);
+		list.push(textInput);
+		console.log(list);
+	}
+
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<h3>{clickCount}</h3>
+	<button on:click={handleCount}>Increment</button>
+	<br><br><br>
+	<h3>{textInput}</h3>
+	<input type="text" id="inText" name="inText" placeholder="Input Text"on:input={handleText}>
+	<br><br>
+	<button on:click={handleListAdd}>Add Text to List</button>
+	<ul>
+		{#each localList as listItem (listItem)}
+			<li>{listItem}</li>
+		{/each}
+	</ul>
 </main>
 
 <style>
 	main {
+		width: fit-content;
+		height: fit-content;
 		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
 	}
 </style>
