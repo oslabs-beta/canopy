@@ -3,6 +3,7 @@
 "description": "A simple Chrome extension for Svelte developers",
 "version": "1.0",
 "manifest_version": 3, 
+"devtools_page": "/devtool.html",
 "background": {
     "service_worker": "background.js"
   }, 
