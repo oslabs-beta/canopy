@@ -5,7 +5,7 @@
 "manifest_version": 3, 
 "devtools_page": "/devtool.html",
 "background": {
-    "service_worker": "background.js"
+    "service_worker": "/background.js"
   }, 
 "permissions": ["storage", "activeTab", "scripting"], 
 "action": {
