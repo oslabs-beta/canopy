@@ -3,10 +3,10 @@
 "description": "A simple Chrome extension for Svelte developers",
 "version": "1.0",
 "manifest_version": 3, 
-"devtools_page": "/devtool.html",
 "background": {
-    "service_worker": "/background.js"
-  }, 
+  "service_worker": "/background.js"
+}, 
+"devtools_page": "/devtool.html",
 "permissions": ["storage", "activeTab", "scripting"], 
 "action": {
     "default_icon": {
