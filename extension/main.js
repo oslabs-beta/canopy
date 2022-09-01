@@ -12,5 +12,5 @@ chrome.devtools.panels.create("Canopy",
 chrome.devtools.panels.elements.createSidebarPane("Svelte Component",
     function(sidebar) {
         // sidebar initialization code here
-        sidebar.setObject({ some_data: "Some data to show" });
+        sidebar.setPage("/sidebar.html");
 });
