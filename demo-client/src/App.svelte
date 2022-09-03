@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let clickCount = 0;
 	export let textInput = 'Enter Text in \'Input Text\'';
 	export let list = [];
