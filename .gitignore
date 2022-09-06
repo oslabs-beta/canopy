@@ -1,5 +1,7 @@
 /demo-client/node_modules/
 /demo-client/public/build/
-/extension/node_modules/
+/extension/sidebar-bundle-generator/node_modules/
+/extension/devtool-bundle-generator/node_modules/
+/extension/src/node_modules/
 
 .DS_Store
