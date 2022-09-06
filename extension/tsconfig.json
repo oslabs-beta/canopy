@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "sourceMap": true, 
+      "jsx": "react",
+      "esModuleInterop": true, 
+      "noImplicitAny": true, 
+      "outDir": "./src/built",
+      "allowJs": true,
+      "target": "ES2015"
+    },
+    "include": ["./src/**/*"]
+  }
