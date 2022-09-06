@@ -1,6 +1,6 @@
 /demo-client/node_modules/
 /demo-client/public/build/
 /extension/node_modules/
-/extension/
+/extension/src/built/
 
 .DS_Store
