@@ -1,5 +1,5 @@
 <script lang="ts">
-
+	export let snapshots [];
 </script>
 
 <main>
@@ -8,29 +8,12 @@
 
 	<div class="row">
 		<div class="column" style="background-color:#aaa;">
-			<li>State1</li>
-			<li>State2</li>
-			<li>State3</li>
+			{#each snapshots as snapshot, i}
+				
+			{/each}
 		</div>
 		<div class="column" style="background-color:#bbb;">
-			<ul>
-				<li>
-					Stateval1
-					<ul>
-						<li>Stateval1-1</li>
-						<li>Stateval1-2</li>
-						<li>Stateval1-3</li>
-					</ul>
-				</li>
-				<li>
-					Stateval2
-					<ul>
-						<li>Stateval2-1</li>
-						<li>Stateval2-2</li>
-					</ul>
-				</li>
-			</ul>
-		</div>
+			
 	  </div>
 </main>
 
