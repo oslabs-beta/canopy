@@ -6,6 +6,7 @@
 "background": {
   "service_worker": "./background.js"
 }, 
+
 "devtools_page": "/devtool.html",
 "permissions": ["storage", "activeTab", "scripting"], 
 "action": {
@@ -21,5 +22,11 @@
     "32": "./images/get_started32.png",
     "48": "./images/get_started48.png",
     "128": "./images/get_started128.png"
-}
+},
+"content_scripts": [
+  {
+    "matches": ["http://*/*", "https://*/*"], 
+    "js": ["/contentScript.js"]
+  }
+]
 }
