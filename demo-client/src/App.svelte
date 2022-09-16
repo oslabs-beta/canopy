@@ -22,7 +22,7 @@
 	<button on:click={handleCount}>Increment</button>
 	<br><br><br>
 	<h3>{textInput}</h3>
-	<input type="text" id="inText" name="inText" placeholder="Input Text"on:input={handleText}>
+	<input type="text" id="inText" placeholder="Input Text"on:input={handleText}>
 	<br><br>
 	<button on:click={handleListAdd}>Add Text to List</button>
 	<ul>
