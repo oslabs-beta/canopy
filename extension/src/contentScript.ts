@@ -1,3 +1,6 @@
+// Variable to store whether page initialized
+let pageInitialized = false;
+
 // Adds event listener to window that sends messages to chrome runtime if message sent to window
 window.addEventListener('message', (e) => {
   chrome.runtime.sendMessage(e.data)
@@ -12,14 +15,15 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
     }
     // If page update initiated, updates page shown to user.
     if (req.body === 'INITIALIZE_PAGE') {
-      if (!window.tag) {
-        window.tag = document.createElement('script');
+      if (!pageInitialized) {
+        pageInitialized = true;
+        const newPage = document.createElement('script');
         const root = document.getElementById('root');
         while (root.children.length) {
           root.children[0].remove();
         }
         
-        window.tag.text = `(function () {
+        newPage.text = `(function () {
           'use strict';
 
           const deepCopy = (e) => JSON.parse(JSON.stringify(e));
@@ -94,7 +98,7 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
         ${req.script}
         `
         // Set onreset attribute to new text
-        document.documentElement.setAttribute('onreset', window.tag.text);
+        document.documentElement.setAttribute('onreset', newPage.text);
         document.documentElement.dispatchEvent(new CustomEvent('reset'));
       }
     }
