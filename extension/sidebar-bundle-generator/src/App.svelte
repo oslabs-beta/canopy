@@ -73,25 +73,4 @@
 		max-width: 240px;
 		margin: 0 auto;
 	}
-	.tree-container {
-	
-		background-color: rgb(196, 191, 191);
-
-		
-	}
-	ul{
-		padding: 12px;
-		/* padding-inline-start: 0; */
-		list-style-type: none;
-	}
-
-    li{
-            list-style: none;
-        }
-    li::before{
-            content: "\00BB";
-        }
-	li :hover{
-		font-weight: bold;
-	}
 </style>
