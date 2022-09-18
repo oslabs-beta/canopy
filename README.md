@@ -8,3 +8,9 @@ cd extension/src && npm i && npm run tsc && cd ../sidebar-bundle-generator && np
 
 STEP 2:
 Unpack ./extension/src/built to Chrome
+
+ORDER OF OPERATIONS FOR USAGE (as of Sat at 12noon):
+a. Be sure that all DevTools windows are closed.
+b. Reload the extension in chrome://extensions/.
+c. Refresh the page containing the Svelte app.
+d. Now, Canopy should be available in the DevTools panel.
