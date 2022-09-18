@@ -51,7 +51,7 @@
 
 </script>
 
-
+<h1>3x+1 Tester</h1>
 
 <center>
     <input type="text" id="theInt" placeholder="myInt" size="8" value="{defaultInt}" />
@@ -64,7 +64,6 @@ The (in)famous <em><strong><span class="definition">3x+1 conjecture</span></stro
 To test the conjecture, enter a positive integer (or use the default {defaultInt}) and then <button id="CollatzButton" on:click={handleClick}>run </button> the function!
 
 <p/>
-
 
 <small>
 <button on:click={toggleInfo} id="toggleInfoButton">
