@@ -9,6 +9,7 @@
 </script>
 
 <div id="counter-container">
+  <h4>Counter</h4>
   <h3>{clickCount}</h3>
   <button on:click={handleCount}>Increment</button>
 </div>
