@@ -30,6 +30,9 @@
 </div>
 
 <style>
+  * {
+    line-height: 1.8;
+  }
   strong {
     font-size: 14px;
   }
