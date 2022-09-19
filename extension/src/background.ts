@@ -69,15 +69,27 @@ async function listenerCriteria(data: any) {
 
 // Adds listener to port
 chrome.runtime.onConnect.addListener((connectedPort) => {
+  console.log(connectedPort.name);
+  console.log(connectedPort);
   // Adds listeners to panel-port and sidebar-port if they don't already exist and connects them to background
   if (connectedPort.name === "panel-port" && !panelPort) {
     console.log('panel connecting');
     panelPort = connectedPort;
     panelPort.onMessage.addListener(listenerCriteria);
+    panelPort.onDisconnect.addListener(() => {
+      console.log('panelDisconnected');
+      scriptInjected = undefined;
+      panelPort = undefined;
+    });
   }
   if (connectedPort.name === "sidebar-port" && !sidebarPort) {
     console.log('side connecting');
     sidebarPort = connectedPort;
     sidebarPort.onMessage.addListener(listenerCriteria);
+    sidebarPort.onDisconnect.addListener(() => {
+      console.log('sideDisconnected');
+      scriptInjected = undefined;
+      sidebarPort = undefined;
+    });
   }
 })

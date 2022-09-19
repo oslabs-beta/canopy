@@ -1,6 +1,6 @@
 <script lang="ts">
 	
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	import ComponentTree from './ComponentTree.svelte';
 
@@ -92,6 +92,8 @@
 
 	// Activates on component mount
 	onMount(async () => {
+    console.log('sidebarMount');
+    console.log('preconnectPort', chromePort);
 		// Connects page to port and injects script to page with injectScript command
 		chromePort = await chrome.runtime.connect({ name: "sidebar-port" });
 		console.log('currPort', chromePort);
@@ -100,6 +102,13 @@
 		// Posts time travel message with first state to get component views of first state
 		chromePort.postMessage({ target: 'CANOPY', body: 'getComponents' });
 	});
+
+  // Disconnects port and reassigns it to undefined when page left
+  onDestroy(() => {
+    console.log('sidebarDestroyed');
+		chromePort.disconnect();
+		chromePort = undefined;
+	})
 
 </script>
 
