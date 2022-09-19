@@ -5,7 +5,9 @@
         return n / 2;
     }
 
-    let currInt = 12;
+    const defaultInt = 12;
+
+    let currInt = defaultInt;
 
     function isPositiveInt(data) {
         if (typeof data !== "number" || isNaN(data) || data <= 0 || (data % 1)) return false;
@@ -13,6 +15,8 @@
     }
 
     function handleClick() {
+
+        currInt = Number(document.querySelector("#theInt").value);
 
         if (!isPositiveInt(currInt)) {
             alert("Input must be a positive integer!");
@@ -23,11 +27,11 @@
         currInt = Collatz(currInt);
         
         setTimeout(() => {
-            if (Collatz(currInt) === 1) {
+            if (currInt === 1) {
                 alert("You have reached 1!");
                 currInt = defaultInt;
             }
-        }, 0);
+        }, 200);
         
         return;
     }
@@ -61,7 +65,7 @@
 
     <p/>
 
-    To test the conjecture, enter a positive integer (or use the default {currInt}) and then <button id="CollatzButton" on:click={handleClick}>run </button> the function!
+    To test the conjecture, enter a positive integer (or use the default {defaultInt}) and then <button id="CollatzButton" on:click={handleClick}>run </button> the function!
 
     <p/>
 
