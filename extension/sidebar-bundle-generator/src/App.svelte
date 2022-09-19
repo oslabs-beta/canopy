@@ -3,6 +3,52 @@
 	import { onMount } from 'svelte';
 
 	import ComponentTree from './ComponentTree.svelte';
+
+	// Sample tree for component tree
+  const tree = {
+    componentKey: "onlyApple",
+    componentName: "App",
+    children:
+    [
+      {
+        componentKey: "onlyNavBar",
+        componentName: "NavBar",
+        children: []
+      },
+      {
+        componentKey: "myListItem1",
+        componentName: "ListItem",
+        children: [
+          {
+            componentKey: "onlySubItem",
+            componentName: "SubItem",
+            children: [
+              {
+                componentKey: "onlySubSubItem",
+                componentName: "SubSubItem",
+                children: []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        componentKey: "myListItem2",
+        componentName: "ListItem",
+        children: []
+      },
+      {
+        componentKey: "myListItem3",
+        componentName: "ListItem",
+        children: []
+      },
+      {
+        componentKey: "myListItem4",
+        componentName: "ListItem",
+        children: []
+      }
+    ]
+  }
 	
 	export let currMoment
 	let chromePort;
@@ -59,7 +105,8 @@
 
 <main>
 	<h1>Component Tree</h1>
-	<ComponentTree {currMoment} />
+	{currMoment}
+	<ComponentTree {tree} />
 </main>
 
 <style>
