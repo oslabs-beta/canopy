@@ -126,14 +126,15 @@
 	  </div>
 </main>
 
+<!-- rgb(227, 234, 216)  -->
+<!-- rgb(118, 154, 69) -->
+
 <style>
 	main {
 		text-align: center;
 		padding: 1em;
-		/* max-width: 240px; */
 		margin: 0 auto;
-		/* background-color: rgb(195, 231, 139); */
-		background-image: linear-gradient(rgb(195, 231, 139), rgb(229, 234, 220))
+		background-image: linear-gradient(rgb(227, 234, 216), rgb(229, 234, 220))
 	}
 
 	h1 {
@@ -149,10 +150,8 @@
 	.stateButton {
 		background-color: white;
 		color: black;
-		border: 2px solid rgb(110, 135, 69);
-		padding: 10px 15px; 
-		/* padding-top: 5px;
-		padding-bottom: 5px; */
+		border: 2px solid rgb(118, 154, 69);
+		padding: 10px 15px;
 		text-align: center;
 		display: inline-block;
 		font-size: 15px;
@@ -161,7 +160,7 @@
 	}
 
 	.stateButton:hover {
-		background-color: rgb(110, 135, 69);
+		background-color: rgb(118, 154, 69);
 	}
 
 	* {
@@ -175,10 +174,7 @@
 
 	.column {
 		float: left;
-  		/* flex: 20%; */
   		padding: 10px;
-/* Should be removed. Only for demonstration */
-  		/* height: 300px; */
 	}
 
 	.left{
