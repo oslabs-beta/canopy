@@ -36,7 +36,7 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: '../src/built/devtoolBundle.js'
+		file: '../src/built/panelBundle.js'
 	},
 	plugins: [
 		svelte({
@@ -48,7 +48,7 @@ export default {
 		}),
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
-		css({ output: 'devtoolBundle.css' }),
+		css({ output: 'panelBundle.css' }),
 
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In
