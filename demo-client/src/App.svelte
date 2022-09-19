@@ -2,14 +2,16 @@
 
 	import Slider from "./Slider.svelte";
 	import Counter from "./Counter.svelte";
-    import List from "./List.svelte";
+	// import List from "./List.svelte";
+	import Collatz from "./Collatz.svelte";
 
 	
 </script>
 
 <Counter/>
-<List/>
+<!-- <List/> -->
 <Slider/>
+<Collatz />
 
 <style>
 	

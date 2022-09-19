@@ -1,6 +1,6 @@
 <script>
 
-  export let clickCount = 0;
+  let clickCount = 0;
 
   function handleCount () {
       clickCount++;

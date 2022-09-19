@@ -1,8 +1,8 @@
 
 <script>
 
-    export let textInput = '';
-	export let list = [];
+    let textInput = '';
+	let list = [];
     list = list;
    
 	function handleText (e) {
