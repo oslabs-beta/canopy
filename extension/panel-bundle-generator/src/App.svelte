@@ -1,6 +1,7 @@
 <script lang="ts">
 
 	import { onMount } from 'svelte';
+
 	import State from './State.svelte';
 
 	export let snapshots = [];
@@ -10,32 +11,26 @@
 	$: currState = snapshots[currIndex];
 
 	// Connects chrome port to extension
-	const connectToPort = () => {
-		// Saves port to variable
-		chromePort = chrome.runtime.connect();
+	const portMsgInit = () => {
 		// Adds listener to chrome port to update component if corresponding message recieved
 		chromePort.onMessage.addListener((msg, sender, sendResponse) => {
-
 			// if (msg.target !== 'CANOPY') return;
 			if (!snapshots.includes(msg.body)) {
 				const moment = [];
-        msg.body.componentStates.forEach((state) => {
-          const obj = {};
-          obj[state[2]] = state[1];
-          moment.push(obj);
-        });
+				msg.body.componentData.forEach((state) => {
+					const obj = {};
+					obj[state[2]] = state[1];
+					moment.push(obj);
+				});
 				
-        snapshots = [...snapshots.slice(0, msg.body.cacheLength), moment];
+				snapshots = [...snapshots.slice(0, msg.body.cacheLength), moment];
+				currIndex = snapshots.length - 1;
 			}
 		});
 	}
 
 	// Injects script to page
 	const injectScript = async () => {
-		await chromePort.postMessage({
-			target: 'CANOPY',
-      body: 'runContentScript',
-    });
 		chrome.devtools.inspectedWindow.getResources((resources) => {
       // search for bundle file, make sure its named bundle.js
       for (let i = 0; i < resources.length; i++) {
@@ -43,7 +38,7 @@
           resources[i].getContent((content, encoding) => {
             chromePort.postMessage({
 							target: 'CANOPY',
-              body: 'updateScript',
+              body: 'runAndInjectScript',
               script: content,
             });
           });
@@ -52,15 +47,17 @@
     });
 	}
 
-	// On component mount, connects page to port and injects script to page with updateScript command
+	// On component mount, connects page to port and injects script to page with injectScript command
 	onMount(async () => {
-		connectToPort();
+		// Saves port to variable
+		chromePort = chrome.runtime.connect({ name: "panel-port" });
+		portMsgInit();
 		await injectScript();
 	});
 
 	// Sends current index to port when request sent
 	const sendCurrIndex = () => {
-		chromePort.postMessage({ target: 'CANOPY', body: 'updateExtensionIndex', currentIndex: currIndex })
+		chromePort.postMessage({ target: 'CANOPY', body: 'timeTravel', currentIndex: currIndex });
 	};
 
 </script>

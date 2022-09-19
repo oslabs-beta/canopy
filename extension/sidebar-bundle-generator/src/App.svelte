@@ -1,41 +1,33 @@
 <script lang="ts">
 	
 	import { onMount } from 'svelte';
-	import ComponentTree from './ComponentTree.svelte';
 
-	export let snapshots = [];
+	import ComponentTree from './ComponentTree.svelte';
 	
-	let currIndex = 0;
+	export let currMoment
 	let chromePort;
-	$: currState = snapshots[currIndex];
 
 	// Connects chrome port to extension
-	const connectToPort = () => {
-		// Saves port to variable
-		chromePort = chrome.runtime.connect();
+	const portMsgInit = () => {
+		console.log('port MESS INITIATED');
 		// Adds listener to chrome port to update component if corresponding message recieved
 		chromePort.onMessage.addListener((msg, sender, sendResponse) => {
-
+			console.log('sidebar-message', msg.body);
 			// if (msg.target !== 'CANOPY') return;
-			if (!snapshots.includes(msg.body)) {
+			if (currMoment !== msg.body) {
 				const moment = [];
-        msg.body.componentStates.forEach((state) => {
+        msg.body.componentData.forEach((state) => {
           const obj = {};
           obj[state[2]] = state[1];
           moment.push(obj);
         });
-				
-        snapshots = [...snapshots.slice(0, msg.body.cacheLength), moment];
+        currMoment = moment;
 			}
 		});
 	}
 
 	// Injects script to page
 	const injectScript = async () => {
-		await chromePort.postMessage({
-			target: 'CANOPY',
-      body: 'runContentScript',
-    });
 		chrome.devtools.inspectedWindow.getResources((resources) => {
       // search for bundle file, make sure its named bundle.js
       for (let i = 0; i < resources.length; i++) {
@@ -43,7 +35,7 @@
           resources[i].getContent((content, encoding) => {
             chromePort.postMessage({
 							target: 'CANOPY',
-              body: 'updateScript',
+              body: 'runAndInjectScript',
               script: content,
             });
           });
@@ -52,18 +44,22 @@
     });
 	}
 
-	// On component mount, connects page to port and injects script to page with updateScript command
+	// Activates on component mount
 	onMount(async () => {
-		connectToPort();
+		// Connects page to port and injects script to page with injectScript command
+		chromePort = await chrome.runtime.connect({ name: "sidebar-port" });
+		console.log('currPort', chromePort);
+		portMsgInit();
 		await injectScript();
+		// Posts time travel message with first state to get component views of first state
+		chromePort.postMessage({ target: 'CANOPY', body: 'getComponents' });
 	});
 
 </script>
 
 <main>
 	<h1>Component Tree</h1>
-		<ComponentTree {currState} />
-   
+	<ComponentTree {currMoment} />
 </main>
 
 <style>
