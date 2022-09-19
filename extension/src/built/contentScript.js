@@ -102,8 +102,11 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
           }
         }, false);
       })();
-      ${req.script}
       `;
+            // Fixing mapping issues on injection
+            if (req.script.includes("//# sourceMappingURL=bundle.js.map")) {
+                newPage.text += req.script.substr(0, req.script.length - 34) + "//# sourceMappingURL=build/bundle.js.map";
+            }
             // Set onreset attribute to new text
             document.documentElement.setAttribute('onreset', newPage.text);
             document.documentElement.dispatchEvent(new CustomEvent('reset'));
