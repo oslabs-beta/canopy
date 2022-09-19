@@ -1,27 +1,65 @@
 <script lang="ts">
 	
+	import { onMount } from 'svelte';
+
+	import ComponentTree from './ComponentTree.svelte';
+	
+	export let currMoment
+	let chromePort;
+
+	// Connects chrome port to extension
+	const portMsgInit = () => {
+		console.log('port MESS INITIATED');
+		// Adds listener to chrome port to update component if corresponding message recieved
+		chromePort.onMessage.addListener((msg, sender, sendResponse) => {
+			console.log('sidebar-message', msg.body);
+			// if (msg.target !== 'CANOPY') return;
+			if (currMoment !== msg.body) {
+				const moment = [];
+        msg.body.componentData.forEach((state) => {
+          const obj = {};
+          obj[state[2]] = state[1];
+          moment.push(obj);
+        });
+        currMoment = moment;
+			}
+		});
+	}
+
+	// Injects script to page
+	const injectScript = async () => {
+		chrome.devtools.inspectedWindow.getResources((resources) => {
+      // search for bundle file, make sure its named bundle.js
+      for (let i = 0; i < resources.length; i++) {
+        if (resources[i].url.endsWith('bundle.js')) {
+          resources[i].getContent((content, encoding) => {
+            chromePort.postMessage({
+							target: 'CANOPY',
+              body: 'runAndInjectScript',
+              script: content,
+            });
+          });
+        }
+      }
+    });
+	}
+
+	// Activates on component mount
+	onMount(async () => {
+		// Connects page to port and injects script to page with injectScript command
+		chromePort = await chrome.runtime.connect({ name: "sidebar-port" });
+		console.log('currPort', chromePort);
+		portMsgInit();
+		await injectScript();
+		// Posts time travel message with first state to get component views of first state
+		chromePort.postMessage({ target: 'CANOPY', body: 'getComponents' });
+	});
+
 </script>
 
 <main>
-	<h1>Component Data</h1>
-    <div class="tree-container">
-        <ul>
-            <li>Counter Component</li>
-            <li>component</li>
-			<li>[props: ] <br> [state: ]</li>
-			<ul>
-				<li>btn</li>
-				<li>component</li>
-				<li>[props:  ] <br> [data: ]</li>
-			</ul>
-			<ul>
-				<li>input</li>
-				<li>component</li>
-				<li>[props:  ] <br> [data: ]</li>
-			</ul>
-        </ul>
-		
-    </div>
+	<h1>Component Tree</h1>
+	<ComponentTree {currMoment} />
 </main>
 
 <style>
@@ -30,26 +68,5 @@
 		padding: 1em;
 		max-width: 240px;
 		margin: 0 auto;
-	}
-	.tree-container {
-	
-		background-color: rgb(196, 191, 191);
-
-		
-	}
-	ul{
-		padding: 12px;
-		/* padding-inline-start: 0; */
-		list-style-type: none;
-	}
-
-    li{
-            list-style: none;
-        }
-    li::before{
-            content: "\00BB";
-        }
-	li :hover{
-		font-weight: bold;
 	}
 </style>

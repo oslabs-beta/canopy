@@ -5,9 +5,10 @@ html, body {
 }
 
 body {
+	display: flex; 
 	color: #333;
 	margin: 0;
-	padding: 8px;
+	padding: 40px;
 	box-sizing: border-box;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
