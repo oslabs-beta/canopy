@@ -1,13 +1,17 @@
 <script lang="ts">
+  import { children } from "svelte/internal";
 
   export let tree;
-
   let hasChildren;
-  if (tree.children.length) {
-      hasChildren = true;
-  } else {
-      hasChildren = false;
+
+  $: {
+    if (tree.children.length) {
+        hasChildren = true;
+    } else {
+        hasChildren = false;
+    }
   }
+  
 
   // this is only ever used if hasChildren is true
   export let expanded = true;

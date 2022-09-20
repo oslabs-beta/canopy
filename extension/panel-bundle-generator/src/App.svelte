@@ -1,6 +1,6 @@
 <script lang="ts">
 
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	import State from './State.svelte';
 
@@ -47,18 +47,31 @@
     });
 	}
 
-	// On component mount, connects page to port and injects script to page with injectScript command
-	onMount(async () => {
-		// Saves port to variable
-		chromePort = chrome.runtime.connect({ name: "panel-port" });
-		portMsgInit();
-		await injectScript();
-	});
-
 	// Sends current index to port when request sent
 	const sendCurrIndex = () => {
+		console.log('sending to PORT->', chromePort);
 		chromePort.postMessage({ target: 'CANOPY', body: 'timeTravel', currentIndex: currIndex });
 	};
+
+	// On component mount, connects page to port and injects script to page with injectScript command
+	onMount(async () => {
+		console.log('panelMount');
+		console.log('preconnectPort', chromePort);
+		// Saves port to variable
+		chromePort = chrome.runtime.connect({ name: "panel-port" });
+		console.log('currPort', chromePort);
+		portMsgInit();
+		await injectScript();
+		sendCurrIndex();
+	});
+
+	// Disconnects port and reassigns it to undefined when page left
+	onDestroy(() => {
+		console.log('panelDestroyed');
+		chromePort.disconnect();
+		chromePort = undefined;
+		chrome.runtime.reload();
+	})
 
 	const stateName = (snapshots, index) => {
     let name = 'Reset'

@@ -9,10 +9,17 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
   if (req.target === 'CANOPY') {
     // If time travel initiated, posts message to window with target CANOPY, body TIME_TRAVEL, and state index value
     if (req.body === 'TIME_TRAVEL') {
+      console.log('time travel activated');
       window.postMessage({ target: 'CANOPY', body: 'TIME_TRAVEL', currentIndex: req.currentIndex });
+    }
+    // If component request initiated, posts message to window with target CANOPY, body COMPONENTS
+    if (req.body === 'COMPONENTS') {
+      window.postMessage({ target: 'CANOPY', body: 'COMPONENTS'});
     }
     // If page update initiated, updates page shown to user.
     if (req.body === 'INJECT_SCRIPT') {
+      // If onreset is already set don't run injection
+      if (document.documentElement.getAttribute('onreset')) return;
       const newPage = document.createElement('script');
       const root = document.getElementById('root');
       while (root.children.length) {
@@ -40,7 +47,6 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
         };
         // Adds event listener for 'SvelteRegisterComponent' (only in dev mode)
         window.document.addEventListener('SvelteRegisterComponent', (e) => {
-          tagNames.push(e.detail.tagName);
           components.push(e.detail.component);
         });
         // Sets timeout to save and dispatch state after svelte register component event listener added
@@ -95,18 +101,15 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
           }
           // Retrieves components at current state
           if (messageEvent.data.body === 'COMPONENTS') {
-            const currComps = [];
-            tagNames.forEach((compName) => {
-              currComps.push(compName);
-            });
-            console.log('getting comp tag names', currComps);
-            sendMessages(deepCopy(currComps));
+            saveAndDispatchState();
           }
         }, false);
       })();
-      ${req.script}
       `
-      // Set onreset attribute to new text
+      // Fixing mapping issues on injection
+      if (req.script.includes("//# sourceMappingURL=bundle.js.map")) {
+        newPage.text += req.script.substr(0, req.script.length - 34) + "//# sourceMappingURL=build/bundle.js.map"
+      }
       document.documentElement.setAttribute('onreset', newPage.text);
       document.documentElement.dispatchEvent(new CustomEvent('reset'));
     }
