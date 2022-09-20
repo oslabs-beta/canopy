@@ -8,11 +8,18 @@
 	
 </script>
 
+<img src="Canopy.png" alt="Canopy" width="150" height="150">
 <Counter/>
 <!-- <List/> -->
 <Slider/>
 <Collatz />
 
 <style>
+	img {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		box-shadow: 0px 0px 7px #ccc
+	}
 	
 </style>
