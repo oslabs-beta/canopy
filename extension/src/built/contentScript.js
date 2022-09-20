@@ -17,6 +17,9 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
         }
         // If page update initiated, updates page shown to user.
         if (req.body === 'INJECT_SCRIPT') {
+            // If onreset is already set don't run injection
+            if (document.documentElement.getAttribute('onreset'))
+                return;
             const newPage = document.createElement('script');
             const root = document.getElementById('root');
             while (root.children.length) {

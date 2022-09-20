@@ -5,69 +5,23 @@
 	import ComponentTree from './ComponentTree.svelte';
 
 	// Sample tree for component tree
-  const tree = {
-    componentKey: "onlyApple",
-    componentName: "App",
-    children:
-    [
-      {
-        componentKey: "onlyNavBar",
-        componentName: "NavBar",
-        children: []
-      },
-      {
-        componentKey: "myListItem1",
-        componentName: "ListItem",
-        children: [
-          {
-            componentKey: "onlySubItem",
-            componentName: "SubItem",
-            children: [
-              {
-                componentKey: "onlySubSubItem",
-                componentName: "SubSubItem",
-                children: []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        componentKey: "myListItem2",
-        componentName: "ListItem",
-        children: []
-      },
-      {
-        componentKey: "myListItem3",
-        componentName: "ListItem",
-        children: []
-      },
-      {
-        componentKey: "myListItem4",
-        componentName: "ListItem",
-        children: []
-      }
-    ]
-  }
+  let currMoment = { componentKey: -1, componentName: 'BaseApp', children: [] };
+  $: tree = currMoment;
 	
-	export let currMoment
 	let chromePort;
 
 	// Connects chrome port to extension
 	const portMsgInit = () => {
-		console.log('port MESS INITIATED');
 		// Adds listener to chrome port to update component if corresponding message recieved
 		chromePort.onMessage.addListener((msg, sender, sendResponse) => {
 			console.log('sidebar-message', msg.body);
 			// if (msg.target !== 'CANOPY') return;
-			if (currMoment !== msg.body) {
-				const moment = [];
-        msg.body.componentData.forEach((component) => {
-          // saving component names to currMoment
-          moment.push(component[2]);
-        });
-        currMoment = moment;
-			}
+      const moment = tree;
+      msg.body.componentData.forEach((component, index) => {
+        // saving component names to moment
+        moment.children = [...moment.children, {componentKey: index, componentName: component[2], children: []}];
+      });
+      currMoment = moment;
 		});
 	}
 
@@ -114,8 +68,7 @@
 
 <main>
 	<h1>Component Tree</h1>
-	{currMoment}
-	<ComponentTree {tree} />
+	<ComponentTree bind:tree={tree} />
 </main>
 
 <style>
