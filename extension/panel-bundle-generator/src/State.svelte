@@ -31,7 +31,7 @@
 
 <style>
   * {
-    line-height: 1.8;
+    line-height: 1.2;
   }
   strong {
     font-size: 14px;
