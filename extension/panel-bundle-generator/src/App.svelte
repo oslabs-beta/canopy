@@ -47,6 +47,12 @@
     });
 	}
 
+	// Sends current index to port when request sent
+	const sendCurrIndex = () => {
+		console.log('sending to PORT->', chromePort);
+		chromePort.postMessage({ target: 'CANOPY', body: 'timeTravel', currentIndex: currIndex });
+	};
+
 	// On component mount, connects page to port and injects script to page with injectScript command
 	onMount(async () => {
 		console.log('panelMount');
@@ -56,6 +62,7 @@
 		console.log('currPort', chromePort);
 		portMsgInit();
 		await injectScript();
+		sendCurrIndex();
 	});
 
 	// Disconnects port and reassigns it to undefined when page left
@@ -63,12 +70,8 @@
 		console.log('panelDestroyed');
 		chromePort.disconnect();
 		chromePort = undefined;
+		chrome.runtime.reload();
 	})
-
-	// Sends current index to port when request sent
-	const sendCurrIndex = () => {
-		chromePort.postMessage({ target: 'CANOPY', body: 'timeTravel', currentIndex: currIndex });
-	};
 
 	const stateName = (snapshots, index) => {
     let name = 'Reset'

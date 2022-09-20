@@ -9,7 +9,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   // Passes messages to port if request target is valid
   if (request && request.target === 'CANOPY') {
     // If port exists posts messages to ports
-    console.log(request)
+    console.log('req:', request);
+    console.log('panelPort:', panelPort);
+    console.log('sidebarPort', sidebarPort);
     if (sidebarPort) sidebarPort.postMessage({ body: request.body });
     if (panelPort) panelPort.postMessage({ body: request.body });
   }

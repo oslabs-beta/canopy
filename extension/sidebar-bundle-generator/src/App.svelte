@@ -62,10 +62,9 @@
 			// if (msg.target !== 'CANOPY') return;
 			if (currMoment !== msg.body) {
 				const moment = [];
-        msg.body.componentData.forEach((state) => {
-          const obj = {};
-          obj[state[2]] = state[1];
-          moment.push(obj);
+        msg.body.componentData.forEach((component) => {
+          // saving component names to currMoment
+          moment.push(component[2]);
         });
         currMoment = moment;
 			}
@@ -108,6 +107,7 @@
     console.log('sidebarDestroyed');
 		chromePort.disconnect();
 		chromePort = undefined;
+    chrome.runtime.reload();
 	})
 
 </script>
