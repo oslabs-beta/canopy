@@ -27,6 +27,8 @@ cd extension/src && npm i && npm run tsc && cd ../sidebar-bundle-generator && np
 
 3. Open Google Chrome, navigate to [`chrome://extensions/`](chrome://extensions/), and make sure the "Developer mode" toggle in the top-right is switched on. Then, click the "Load unpacked" button in the top-left and select the directory `./extension/src/built` on your local machine.
 
+4. Make your Svelte Application target a component with the id "root".
+
 And voil&agrave;! You are now the proud owner of the latest instance of Canopy. To use, it simply run your favorite Svelte project *in dev mode* and open the appropriate `localhost` port in Chrome -- more specific instructions are below. Alternatively, you can use our pre-loaded Svelte project by navigating in your terminal to the directory `./demo-client` and running `npm run dev` .
 
 
