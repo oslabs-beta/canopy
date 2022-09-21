@@ -21,5 +21,5 @@
 		margin-right: auto;
 		box-shadow: 0px 0px 7px #ccc
 	}
-	
+
 </style>
