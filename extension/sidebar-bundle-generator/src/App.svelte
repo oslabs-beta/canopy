@@ -1,7 +1,6 @@
 <script lang="ts">
 	
 	import { onDestroy, onMount } from 'svelte';
-  import { children } from 'svelte/internal';
 
 	import ComponentTree from './ComponentTree.svelte';
 
@@ -15,14 +14,15 @@
 	const portMsgInit = () => {
 		// Adds listener to chrome port to update component if corresponding message recieved
 		chromePort.onMessage.addListener((msg, sender, sendResponse) => {
-			console.log('sidebar-message', msg.body);
-			// if (msg.target !== 'CANOPY') return;
-      const moment = tree;
-      msg.body.componentData.forEach((component, index) => {
-        // saving component names to moment
-        moment.children = [...moment.children, {componentKey: index, componentName: component[2], children: []}];
-      });
-      currMoment = moment;
+			const moment = tree;
+			// Resetting children to be empty to update to children in application
+			moment.children = [];
+			msg.body.componentData.forEach((component, index) => {
+				// saving component names to moment
+				moment.children = [...moment.children, {componentKey: index, componentName: component[2], children: []}];
+			});
+			// Resets components in currMoment
+			currMoment = moment;
 		});
 	}
 
@@ -70,7 +70,7 @@
 <main>
 	<h1>Component Visualizer</h1>
 	{#if tree.children.length === 0}
-		Interact with Webpage to activate Svelte Component Visualizer!
+		Interact with Webpage State to activate Svelte Component Visualizer!
 	{:else}
 		<ComponentTree bind:tree={tree} />
 	{/if}

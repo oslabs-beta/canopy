@@ -117,7 +117,7 @@
 <main>
 	<h1>State Tracker</h1>
 	{#if snapshots.length === 0}
-		<div class="activation-reminder">Interact with page to activate Time Travel Debugger!</div>
+		<div class="activation-reminder">Interact with Webpage State to activate Time Travel Debugger!</div>
 	{:else}
 		<div class="row">
 			<div class="column left">
