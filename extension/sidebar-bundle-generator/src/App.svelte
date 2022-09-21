@@ -85,8 +85,8 @@
 		align-items: center;
 		flex-direction: column;
 		text-align: center;
-		width: 100%;
-		height: 100%;
+		width: 100vw;
+		height: 100vh;
 		padding: 1em;
 		margin: 0 auto;
 		background-image: linear-gradient(rgb(227, 234, 216), rgb(229, 234, 220))
