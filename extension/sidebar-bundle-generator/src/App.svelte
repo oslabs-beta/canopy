@@ -1,11 +1,12 @@
 <script lang="ts">
 	
 	import { onDestroy, onMount } from 'svelte';
+  import { children } from 'svelte/internal';
 
 	import ComponentTree from './ComponentTree.svelte';
 
 	// Sample tree for component tree
-  let currMoment = { componentKey: -1, componentName: 'BaseApp', children: [] };
+  let currMoment = { componentKey: -1, componentName: 'Canopy', children: [] };
   $: tree = currMoment;
 	
 	let chromePort;
@@ -67,8 +68,12 @@
 </script>
 
 <main>
-	<h1>Component Tree</h1>
-	<ComponentTree bind:tree={tree} />
+	<h1>Component Visualizer</h1>
+	{#if tree.children.length === 0}
+		Interact with Webpage to activate Svelte Component Visualizer!
+	{:else}
+		<ComponentTree bind:tree={tree} />
+	{/if}
 </main>
 
 <style>
@@ -77,5 +82,6 @@
 		padding: 1em;
 		max-width: 240px;
 		margin: 0 auto;
+		background-image: linear-gradient(rgb(227, 234, 216), rgb(229, 234, 220))
 	}
 </style>

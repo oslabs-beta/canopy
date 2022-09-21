@@ -116,27 +116,34 @@
 
 <main>
 	<h1>State Tracker</h1>
-	<div class="row">
-		<div class="column left">
-			{#each snapshots as snapshot, index}
-				<button
-					class="stateButton {currIndex === index ? 'active' : ""}"
-					on:click={() => {
-						// Sends current index to port
-						currIndex = index;
-						sendCurrIndex();
-					}}
-				>
-				<!-- Replace with useful data -->
-				<div class="smaller">snapshot {index}: </div>
-				{stateName(snapshots, index)}
-				</button>
-				<br />
-			{/each}
+	{#if snapshots.length === 0}
+		<div class="activation-reminder">Interact with page to activate Time Travel Debugger!</div>
+	{:else}
+		<div class="row">
+			<div class="column left">
+				{#each snapshots as snapshot, index}
+					<button
+						class="stateButton {currIndex === index ? 'active' : ""}"
+						on:click={() => {
+							// Sends current index to port
+							currIndex = index;
+							sendCurrIndex();
+						}}
+					>
+					<!-- Replace with useful data -->
+					<div class="smaller">snapshot {index}: </div>
+					{stateName(snapshots, index)}
+					</button>
+					<br />
+				{/each}
+			</div>
+			<div class="column right">
+				
+					<State {currState} />
+				
+			</div>
 		</div>
-		<div class="column right">
-			<State {currState} />
-	  </div>
+	{/if}
 </main>
 
 <!-- rgb(227, 234, 216)  -->
@@ -200,5 +207,13 @@
 		text-align: left;
 		background: rgba(255,255,255, 0.3);
     	border-radius: 8px;
+	}
+
+	.activation-reminder {
+		background: rgba(255,255,255, 0.3);
+		border-radius: 8px;
+		width: fit-content;
+		margin: auto;
+		padding: 10px;
 	}
 </style>
