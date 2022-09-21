@@ -77,10 +77,17 @@
 </main>
 
 <style>
+	* {
+		font-family: Verdana, Geneva, Tahoma, sans-serif;
+	}
 	main {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
 		text-align: center;
+		width: 100%;
+		height: 100%;
 		padding: 1em;
-		max-width: 240px;
 		margin: 0 auto;
 		background-image: linear-gradient(rgb(227, 234, 216), rgb(229, 234, 220))
 	}

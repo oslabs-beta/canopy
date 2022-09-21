@@ -4,7 +4,7 @@
 
 </script>
 
-<div>
+<div class="container">
   {#if currState === undefined}
   <!-- If there's no state close divTag -->
   <div />
@@ -30,6 +30,9 @@
 </div>
 
 <style>
+  .container {
+    width: 100%;
+  }
   * {
     line-height: 1.2;
   }

@@ -55,11 +55,8 @@
 
 	// On component mount, connects page to port and injects script to page with injectScript command
 	onMount(async () => {
-		console.log('panelMount');
-		console.log('preconnectPort', chromePort);
 		// Saves port to variable
 		chromePort = chrome.runtime.connect({ name: "panel-port" });
-		console.log('currPort', chromePort);
 		portMsgInit();
 		await injectScript();
 		sendCurrIndex();
@@ -130,8 +127,7 @@
 							sendCurrIndex();
 						}}
 					>
-					<!-- Replace with useful data -->
-					<div class="smaller">snapshot {index}: </div>
+					<div class="smaller">Snapshot {index}: </div>
 					{stateName(snapshots, index)}
 					</button>
 					<br />
@@ -139,7 +135,7 @@
 			</div>
 			<div class="column right">
 				
-					<State {currState} />
+				<State {currState} />
 				
 			</div>
 		</div>
@@ -152,19 +148,16 @@
 <style>
 	main {
 		text-align: center;
-		padding: 1em;
-		margin: 0 auto;
+		width: 100vw;
+		height: 100vh;
+		margin: 0;
 		background-image: linear-gradient(rgb(227, 234, 216), rgb(229, 234, 220))
-	}
-
-	h1 {
-		color: rgb(73, 74, 74);
-		text-shadow: 2px 2px 3px rgb(145, 147, 145);
 	}
 
 	.smaller {
 		font-size: 80%;
 		line-height: 1.8;
+		width: fit-content;
 	}
 
 	.stateButton {
@@ -184,29 +177,49 @@
 	}
 
 	* {
-  		box-sizing: border-box;
+		box-sizing: border-box;
 		font-family: Verdana, Geneva, Tahoma, sans-serif;
+	}
+	
+	h1 {
+		height: calc(10% - 20px);
+		margin: 10px;
 	}
 
 	.row {
-  		display: flex;
+  	display: flex;
+		width: 100%;
+		height: 90%;
 	}
 
 	.column {
 		float: left;
-  		padding: 10px;
+		overflow-y: scroll;
 	}
 
-	.left{
-		width: 25%;
+	button {
+		margin: 10px;
 		text-align: center;
 	}
 
+	.left{
+		max-height: 100%;
+		width: 150px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		overflow-wrap: break-word;
+	}
+
 	.right{
-		width: 75%;
+		margin-left: 0;
+		margin-right: 15px;
+		margin-bottom: 15px;
 		text-align: left;
+		width: calc(100% - 150px - 15px);
 		background: rgba(255,255,255, 0.3);
-    	border-radius: 8px;
+    border-radius: 8px;
 	}
 
 	.activation-reminder {

@@ -8,18 +8,18 @@
 	
 </script>
 
-<img src="Canopy.png" alt="Canopy" width="150" height="150">
-<Counter/>
-<!-- <List/> -->
-<Slider/>
-<Collatz />
+<div>
+	<img src="Canopy.png" alt="Canopy" width="150" height="150">
+	<Counter/>
+	<!-- <List/> -->
+	<Slider/>
+	<Collatz />
+</div>
 
 <style>
 	img {
 		display: block;
-		margin-left: auto;
-		margin-right: auto;
+		margin: auto;
 		box-shadow: 0px 0px 7px #ccc
 	}
-	
 </style>
