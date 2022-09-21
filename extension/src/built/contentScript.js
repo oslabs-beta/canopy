@@ -8,7 +8,6 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
     if (req.target === 'CANOPY') {
         // If time travel initiated, posts message to window with target CANOPY, body TIME_TRAVEL, and state index value
         if (req.body === 'TIME_TRAVEL') {
-            console.log('time travel activated');
             window.postMessage({ target: 'CANOPY', body: 'TIME_TRAVEL', currentIndex: req.currentIndex });
         }
         // If component request initiated, posts message to window with target CANOPY, body COMPONENTS
@@ -35,7 +34,6 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
         let lastIndex = 0;
         // Send component state messages to window
         const sendMessages = (componentData) => {
-          console.log('sending compDATA in ContentScript', componentData);
           window.postMessage({
             target: 'CANOPY',
             body: {
