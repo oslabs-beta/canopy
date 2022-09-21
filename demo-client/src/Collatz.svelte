@@ -118,18 +118,18 @@
 <style>
     #theInt {
         padding: 2px;
-        background-color: rgb(195, 231, 139);
+        background-color: rgb(249, 249, 249);
         text-align: center;
         font-size: 50px;
         /* color: rgb(110, 135, 69); */
     }
     #CollatzButton {
         padding: 2px;
-        background-color: rgb(195, 231, 139);
+        background-color: rgb(234, 234, 234);
     }
     #toggleInfoButton {
         padding: 2px;
-        background-color: rgb(195, 231, 139);
+        background-color: rgb(234, 234, 234);
     }
     a {
         color: rgb(110, 135, 69)
