@@ -1,6 +1,6 @@
 <script lang="ts">
 
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	import State from './State.svelte';
 
@@ -47,18 +47,28 @@
     });
 	}
 
+	// Sends current index to port when request sent
+	const sendCurrIndex = () => {
+		console.log('sending to PORT->', chromePort);
+		chromePort.postMessage({ target: 'CANOPY', body: 'timeTravel', currentIndex: currIndex });
+	};
+
 	// On component mount, connects page to port and injects script to page with injectScript command
 	onMount(async () => {
 		// Saves port to variable
 		chromePort = chrome.runtime.connect({ name: "panel-port" });
 		portMsgInit();
 		await injectScript();
+		sendCurrIndex();
 	});
 
-	// Sends current index to port when request sent
-	const sendCurrIndex = () => {
-		chromePort.postMessage({ target: 'CANOPY', body: 'timeTravel', currentIndex: currIndex });
-	};
+	// Disconnects port and reassigns it to undefined when page left
+	onDestroy(() => {
+		console.log('panelDestroyed');
+		chromePort.disconnect();
+		chromePort = undefined;
+		chrome.runtime.reload();
+	})
 
 	const stateName = (snapshots, index) => {
     let name = 'Reset'
@@ -103,56 +113,58 @@
 
 <main>
 	<h1>State Tracker</h1>
-	<div class="row">
-		<div class="column left">
-			{#each snapshots as snapshot, index}
-				<button
-					class="stateButton {currIndex === index ? 'active' : ""}"
-					on:click={() => {
-						// Sends current index to port
-						currIndex = index;
-						sendCurrIndex();
-					}}
-				>
-				<!-- Replace with useful data -->
-				<div class="smaller">snapshot {index}: </div>
-				{stateName(snapshots, index)}
-				</button>
-				<br />
-			{/each}
+	{#if snapshots.length === 0}
+		<div class="activation-reminder">Interact with Webpage State to activate Time Travel Debugger!</div>
+	{:else}
+		<div class="row">
+			<div class="column left">
+				{#each snapshots as snapshot, index}
+					<button
+						class="stateButton {currIndex === index ? 'active' : ""}"
+						on:click={() => {
+							// Sends current index to port
+							currIndex = index;
+							sendCurrIndex();
+						}}
+					>
+					<div class="smaller">Snapshot {index}: </div>
+					{stateName(snapshots, index)}
+					</button>
+					<br />
+				{/each}
+			</div>
+			<div class="column right">
+				
+				<State {currState} />
+				
+			</div>
 		</div>
-		<div class="column right">
-			<State {currState} />
-	  </div>
+	{/if}
 </main>
+
+<!-- rgb(227, 234, 216)  -->
+<!-- rgb(118, 154, 69) -->
 
 <style>
 	main {
 		text-align: center;
-		padding: 1em;
-		/* max-width: 240px; */
-		margin: 0 auto;
-		/* background-color: rgb(195, 231, 139); */
-		background-image: linear-gradient(rgb(195, 231, 139), rgb(229, 234, 220))
-	}
-
-	h1 {
-		color: rgb(73, 74, 74);
-		text-shadow: 2px 2px 3px rgb(145, 147, 145);
+		width: 100vw;
+		height: 100vh;
+		margin: 0;
+		background-image: linear-gradient(rgb(227, 234, 216), rgb(229, 234, 220))
 	}
 
 	.smaller {
 		font-size: 80%;
 		line-height: 1.8;
+		width: fit-content;
 	}
 
 	.stateButton {
 		background-color: white;
 		color: black;
-		border: 2px solid rgb(110, 135, 69);
-		padding: 10px 15px; 
-		/* padding-top: 5px;
-		padding-bottom: 5px; */
+		border: 2px solid rgb(118, 154, 69);
+		padding: 10px 15px;
 		text-align: center;
 		display: inline-block;
 		font-size: 15px;
@@ -161,35 +173,60 @@
 	}
 
 	.stateButton:hover {
-		background-color: rgb(110, 135, 69);
+		background-color: rgb(118, 154, 69);
 	}
 
 	* {
-  		box-sizing: border-box;
+		box-sizing: border-box;
 		font-family: Verdana, Geneva, Tahoma, sans-serif;
+	}
+	
+	h1 {
+		height: calc(10% - 20px);
+		margin: 10px;
 	}
 
 	.row {
-  		display: flex;
+  	display: flex;
+		width: 100%;
+		height: 90%;
 	}
 
 	.column {
 		float: left;
-  		/* flex: 20%; */
-  		padding: 10px;
-/* Should be removed. Only for demonstration */
-  		/* height: 300px; */
+		overflow-y: scroll;
 	}
 
-	.left{
-		width: 25%;
+	button {
+		margin: 10px;
 		text-align: center;
 	}
 
+	.left{
+		max-height: 100%;
+		width: 150px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		overflow-wrap: break-word;
+	}
+
 	.right{
-		width: 75%;
+		margin-left: 0;
+		margin-right: 15px;
+		margin-bottom: 15px;
 		text-align: left;
+		width: calc(100% - 150px - 15px);
 		background: rgba(255,255,255, 0.3);
-    	border-radius: 8px;
+    border-radius: 8px;
+	}
+
+	.activation-reminder {
+		background: rgba(255,255,255, 0.3);
+		border-radius: 8px;
+		width: fit-content;
+		margin: auto;
+		padding: 10px;
 	}
 </style>

@@ -5,7 +5,8 @@
         return n / 2;
     }
 
-    let currInt = 12;
+    const defaultInt = 12;
+    let currInt = defaultInt;
 
     function isPositiveInt(data) {
         if (typeof data !== "number" || isNaN(data) || data <= 0 || (data % 1)) return false;
@@ -14,22 +15,44 @@
 
     function handleClick() {
 
-        if (!isPositiveInt(currInt)) {
-            alert("Input must be a positive integer!");
-            currInt = defaultInt;
-            return;
-        }
+        // if (!isPositiveInt(currInt)) {
+        //     alert("Input must be a positive integer!");
+        //     currInt = defaultInt;
+        //     return;
+        // }
 
         currInt = Collatz(currInt);
-        
+
         setTimeout(() => {
-            if (Collatz(currInt) === 1) {
+            if (currInt === 1) {
                 alert("You have reached 1!");
                 currInt = defaultInt;
             }
         }, 0);
         
         return;
+    }
+
+    // function handleInput(e) {
+    //     if (isPositiveInt(Number(e.target.value)) || !e.target.value) currInt = Number(e.target.value);
+    //     else {
+    //         alert("Input must be a positive integer!");
+    //         currInt = defaultInt;
+    //     }
+    // }
+
+    function handleBlur(e) {
+        if (!e.target.value) {
+            alert("Please enter a positive integer!")
+            currInt = defaultInt;
+            return;
+        } else if (isPositiveInt(Number(e.target.value))) {
+            currInt = Number(e.target.value)
+        } else {
+            alert("Input must be a positive integer!");
+            currInt = defaultInt;
+            return;
+        }
     }
 
     let showMoreInfo = false;
@@ -54,14 +77,22 @@
     <h1>3x+1 Tester</h1>
 
     <center>
-        <input type="text" id="theInt" placeholder="myInt" size="8" value={currInt} />
+        <!-- on:input={handleInput} -->
+        <input
+            type="text"
+            id="theInt"
+            placeholder="myInt"
+            size="8"
+            value={currInt}
+            on:blur={handleBlur}
+            />
     </center>
 
     The (in)famous <em><strong><span class="definition">3x+1 conjecture</span></strong></em> predicts that if we start with <em>any</em> positive integer x and iteratively compute either 3x+1 if x is odd or x/2 if x is even, then we will <em>always</em> eventually arrive at the number 1.
 
     <p/>
 
-    To test the conjecture, enter a positive integer (or use the default {currInt}) and then <button id="CollatzButton" on:click={handleClick}>run </button> the function!
+    To test the conjecture, enter a positive integer (or use the default {defaultInt}) and then <button id="CollatzButton" on:click={handleClick}>run </button> the function!
 
     <p/>
 
@@ -87,18 +118,18 @@
 <style>
     #theInt {
         padding: 2px;
-        background-color: rgb(195, 231, 139);
+        background-color: rgb(249, 249, 249);
         text-align: center;
         font-size: 50px;
         /* color: rgb(110, 135, 69); */
     }
     #CollatzButton {
         padding: 2px;
-        background-color: rgb(195, 231, 139);
+        background-color: rgb(234, 234, 234);
     }
     #toggleInfoButton {
         padding: 2px;
-        background-color: rgb(195, 231, 139);
+        background-color: rgb(234, 234, 234);
     }
     a {
         color: rgb(110, 135, 69)

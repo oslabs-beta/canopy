@@ -13,17 +13,17 @@
   ],
   "action": {
       "default_icon": {
-          "16": "./images/get_started16.png",
-          "32": "./images/get_started32.png",
-          "48": "./images/get_started48.png",
-          "128": "./images/get_started128.png"
+          "16": "./images/Canopy---16px.png",
+          "32": "./images/Canopy---32px.png",
+          "48": "./images/Canopy---48px.png",
+          "128": "./images/Canopy---128px.png"
         }
     },
   "icons": {
-      "16": "./images/get_started16.png",
-      "32": "./images/get_started32.png",
-      "48": "./images/get_started48.png",
-      "128": "./images/get_started128.png"
+    "16": "./images/Canopy---16px.png",
+    "32": "./images/Canopy---32px.png",
+    "48": "./images/Canopy---48px.png",
+    "128": "./images/Canopy---128px.png"
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self' http://localhost; object-src 'self'"

@@ -1,19 +1,19 @@
 <script>
-	let a = 1;
-	let b = 2;
+	let sliderOne = 1;
+	let sliderTwo = 2;
 </script>
 <div id='slider-container'>
     <h3>Slider</h3>
 <label>
-	<input type=number bind:value={a} min=0 max=10>
-	<input type=range bind:value={a} min=0 max=10>
+	<input type=number bind:value={sliderOne} min=0 max=10>
+	<input type=range bind:value={sliderOne} min=0 max=10>
 </label>
 
 <label>
-	<input type=number bind:value={b} min=0 max=10>
-	<input type=range bind:value={b} min=0 max=10>
+	<input type=number bind:value={sliderTwo} min=0 max=10>
+	<input type=range bind:value={sliderTwo} min=0 max=10>
 </label>
-<p>{a} + {b} = {a + b}</p>
+<p>{sliderOne} + {sliderTwo} = {sliderOne + sliderTwo}</p>
 </div>
 
 

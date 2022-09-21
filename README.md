@@ -1,84 +1,66 @@
-# canopy
-Chrome devtool for Svelte
+# Welome to Canopy!
 
-STEP 1:
-RUN FOLLOWING IN ROOT DIRECTORY TERMINAL TO INITIALIZE
+*A svelte Svelte debugging app for svelte Svelte devs.*
 
+Bonjour! Canopy is an extension of the Chrome devtools panel. To use it, you'll need to open a Svelte app in developer mode. (We've included one here too, in case you'd like to try Canopy straight out of the box &mdash; see the [Getting started](#getting-started) section below.)
+
+Canopy offers the following two features.
+* **A dynamically-updating component hierarchy tree.** This displays all instances of Svelte components that have been rendered, and automatically updates itself as components are created and destroyed.
+* **A time-traveling state tracker.** This lists all state values, and takes a snapshot upon each state change that can be revisited with the click of a button.
+
+1. [Getting started](#getting-started)
+2. [State tracker](#state-tracker)
+3. [Component tree](#component-tree)
+4. [Debugging](#debugging)
+5. [Contribute](#contribute)
+
+## Getting started
+
+As of now, Canopy has not yet been added to the Chrome Extension store. So to use it, please proceed as follows.
+
+1. Clone this repo to your local machine.
+
+2. Open a terminal, navigate to its root directory, and run the following command.
+```
 cd extension/src && npm i && npm run tsc && cd ../sidebar-bundle-generator && npm i && npm run build && cd ../panel-bundle-generator && npm i && npm run build && cd ../../
+```
 
-STEP 2:
-Unpack ./extension/src/built to Chrome
+3. Open Google Chrome, navigate to [`chrome://extensions/`](chrome://extensions/), and make sure the "Developer mode" toggle in the top-right is switched on. Then, click the "Load unpacked" button in the top-left and select the directory `./extension/src/built` on your local machine.
 
-STEP 3:
-RUN CLIENT IN DEV MODE
+4. Make your Svelte Application target a component with the id "root".
 
-
-
+And voil&agrave;! You are now the proud owner of the latest instance of Canopy. To use, it simply run your favorite Svelte project *in dev mode* and open the appropriate `localhost` port in Chrome -- more specific instructions are below. Alternatively, you can use our pre-loaded Svelte project by navigating in your terminal to the directory `./demo-client` and running `npm run dev` .
 
 
+## State tracker
+
+Once you have opened your Svelte app in Chrome, go ahead and open the Chrome DevTools window (keyboard shortcut `F12`). Among the panels ("Elements", "Console", etc.), you should see "Canopy". And therein lies the state tracker. You should see a list of all state values that dynamically updates with all state changes, as depicted below.
+
+### ANIMATED GIF GOES HERE
+
+Additionally, upon each state change Canopy takes a snapshot of all state values, and by clicking the corresponding button you can "time-travel" back to that state of your app. Each snapshot button is labeled by the state variable that was updated since the previous snapshot.
+
+## Component tree
+
+In order to see the component tree, head to the "Elements" panel, and then open the "Svelte Component Tree" sidebar. (Note that this might actually be *below* your DOM tree, depending on your configurations.) You should see a tree depicting the hierarchy of Svelte components that comprise your app, as depicted below.
+
+### ANIMATED GIF GOES HERE
+
+This tree dynamically updates as components are created and destroyed, and you can hide/show the children of any node that has them (by clicking the adjacent -/+ button). Each node in the tree is labeled by its ID (which may be automatically assigned by Svelte) as well as the Svelte component of which it is an instance.
 
 
-ORDER OF OPERATIONS FOR USAGE (as of Sat at 12noon):
-a. Be sure that all DevTools windows are closed.
-b. Reload the extension in chrome://extensions/.
-c. Refresh the page containing the Svelte app.
-d. Now, Canopy should be available in the DevTools panel.
+## Debugging
+
+Canopy is still in beta, and unfortunately it is currently sensitive to the order in which certain operations are performed. If it is not working for you, please follow the following steps in order.
+
+1. Be sure that all DevTools windows are closed.
+2. Reload the extension (as described in the [Getting started](#getting-started) section above).
+3. Refresh the page containing the Svelte app.
+4. Canopy should now be available in the DevTools panel.
 
 
+## Contribute
 
+Canopy is an open-source product, developed under the auspices of the [Open Source Labs](https://github.com/open-source-labs) tech accelerator. The core Canopy team comprises: [Aaron Mazel-Gee](https://github.com/aaron1729), [Jenna Moon](https://github.com/unbiya), [Justin Paige](https://github.com/jhpaige), and [Vance McGrady](https://github.com/VanceMcGrady). 
 
-
-
-
-
-All projects should have an interesting README
-For the love of whatever matters to you please, please add a description to your projects. It sounds obvious but I cannot tell you how many time I've seen repos with no readme or the default readme created by whatever skeleton tool was used.
-
-Here's the minimum you should have in your readme:
-
-A description
-You need to make it very easy for someone who has 60 seconds to understand what the hell this is about and why that makes you a good programmer.
-
-Make sure you answer at least the following questions:
-
-What does it do? Write a short sentence and list the working functionalities.
-
-What is it? Clearly, indicate what that code is supposed to produce. Is it a web, desktop, mobile app or a library?
-
-What technologies are used? List all the important framework and libraries that contribute to this project. It's useful for a recruiter who is not necessarily familiar with every single framework on earth to know if this is Laravel and Vue or React and Expressjs.
-
-What is the ambition of the project? Are you just test-driving a technology or is it something that is or will go live somewhere?
-
-What is the stage of the project? Clearly, indicate where you are with it. Whether it is complete or a work in progress? If it's a work in progress indicate what is done and what is pending.
-
-Are there some known issues or things that are not properly done? If yes list them because I'll be much more tolerant when/if I find shortcomings that have been highlighted than if I just discover them myself.
-
-Tell me what to look at
-If you're insisting on showcasing a large project there is a probably a lot of boilerplate or "plumbing" that is absolutely uninteresting so do not hesitate to indicate where are the juiciest bits.
-
-If it's a fork in which you're contributing, make clear what you've been working on and if it's too hard to pinpoint then don't showcase that project.
-
-How to run it
-You should absolutely have a clear and precise explanation of how to run it (or how to use it if it is a library).
-
-Running a demo version of your project must one-liner activity such as npm run, graddle serve, docker run .. or whatever is used by your framework.
-
-There's very little reason in this day and age to have a long list of manual dependencies and pre-setup to run anything.
-
-This is what you should strive for:
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# regenerate Element component styles in theme/ from element-variables.css
-npm run theme
-A demo
-If you can have a live accessible demo link it directly in the description. If you can not have a live demo use a screen recorder; and if that's too much to ask; have at least a few screenshots.
-
-https://asciinema.org/ seems cool for console recording but I have not tried it.
+We welcome contributions of all kinds from the Svelte community: comments, questions, suggestions, bug reports, feature requests &mdash; and of course, additions to the codebase. Please feel free to contact us [here](mailto:canopy.for.svelte@gmail.com); we'd love to hear from you!
