@@ -33,11 +33,25 @@
         return;
     }
 
-    function handleInput(e) {
-        if (isPositiveInt(Number(e.target.value)) || !e.target.value) currInt = Number(e.target.value);
-        else {
+    // function handleInput(e) {
+    //     if (isPositiveInt(Number(e.target.value)) || !e.target.value) currInt = Number(e.target.value);
+    //     else {
+    //         alert("Input must be a positive integer!");
+    //         currInt = defaultInt;
+    //     }
+    // }
+
+    function handleBlur(e) {
+        if (!e.target.value) {
+            alert("Please enter a positive integer!")
+            currInt = defaultInt;
+            return;
+        } else if (isPositiveInt(Number(e.target.value))) {
+            currInt = Number(e.target.value)
+        } else {
             alert("Input must be a positive integer!");
             currInt = defaultInt;
+            return;
         }
     }
 
@@ -63,7 +77,15 @@
     <h1>3x+1 Tester</h1>
 
     <center>
-        <input type="text" id="theInt" placeholder="myInt" size="8" value={currInt} on:input={handleInput} />
+        <!-- on:input={handleInput} -->
+        <input
+            type="text"
+            id="theInt"
+            placeholder="myInt"
+            size="8"
+            value={currInt}
+            on:blur={handleBlur}
+            />
     </center>
 
     The (in)famous <em><strong><span class="definition">3x+1 conjecture</span></strong></em> predicts that if we start with <em>any</em> positive integer x and iteratively compute either 3x+1 if x is odd or x/2 if x is even, then we will <em>always</em> eventually arrive at the number 1.
