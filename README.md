@@ -1,4 +1,6 @@
-# Welome to Canopy!
+![](Canopy-cropped.png)
+
+<!-- # Welome to Canopy! -->
 
 *A svelte Svelte debugging app for svelte Svelte devs.*
 
@@ -27,7 +29,22 @@ cd extension/src && npm i && npm run tsc && cd ../sidebar-bundle-generator && np
 
 3. Open Google Chrome, navigate to [`chrome://extensions/`](chrome://extensions/), and make sure the "Developer mode" toggle in the top-right is switched on. Then, click the "Load unpacked" button in the top-left and select the directory `./extension/src/built` on your local machine.
 
-4. Make your Svelte Application target a component with the id "root".
+4. Make sure that your Svelte app targets a DOM element with the id `root`. That is, your index/main `html` and `js` files should contain code that looks something like the following two snippets.
+
+**index.html:**
+```
+<body>
+    <div id="root"></div>
+</body>
+```
+**index.js:**
+```
+import App from './App.svelte';
+
+new App({
+    target: document.getElementById("root"),
+});
+```
 
 And voil&agrave;! You are now the proud owner of the latest instance of Canopy. To use, it simply run your favorite Svelte project *in dev mode* and open the appropriate `localhost` port in Chrome -- more specific instructions are below. Alternatively, you can use our pre-loaded Svelte project by navigating in your terminal to the directory `./demo-client` and running `npm run dev` .
 
@@ -36,7 +53,7 @@ And voil&agrave;! You are now the proud owner of the latest instance of Canopy. 
 
 Once you have opened your Svelte app in Chrome, go ahead and open the Chrome DevTools window (keyboard shortcut `F12`). Among the panels ("Elements", "Console", etc.), you should see "Canopy". And therein lies the state tracker. You should see a list of all state values that dynamically updates with all state changes, as depicted below.
 
-### ANIMATED GIF GOES HERE
+![](statetracker.gif)
 
 Additionally, upon each state change Canopy takes a snapshot of all state values, and by clicking the corresponding button you can "time-travel" back to that state of your app. Each snapshot button is labeled by the state variable that was updated since the previous snapshot.
 
@@ -44,7 +61,7 @@ Additionally, upon each state change Canopy takes a snapshot of all state values
 
 In order to see the component tree, head to the "Elements" panel, and then open the "Svelte Component Tree" sidebar. (Note that this might actually be *below* your DOM tree, depending on your configurations.) You should see a tree depicting the hierarchy of Svelte components that comprise your app, as depicted below.
 
-### ANIMATED GIF GOES HERE
+![](componentvis.gif)
 
 This tree dynamically updates as components are created and destroyed, and you can hide/show the children of any node that has them (by clicking the adjacent -/+ button). Each node in the tree is labeled by its ID (which may be automatically assigned by Svelte) as well as the Svelte component of which it is an instance.
 
@@ -61,6 +78,6 @@ Canopy is still in beta, and unfortunately it is currently sensitive to the orde
 
 ## Contribute
 
-Canopy is an open-source product, developed under the auspices of the [Open Source Labs](https://github.com/open-source-labs) tech accelerator. The core Canopy team comprises: [Aaron Mazel-Gee](https://github.com/aaron1729), [Jenna Moon](https://github.com/unbiya), [Justin Paige](https://github.com/jhpaige), and [Vance McGrady](https://github.com/VanceMcGrady). 
+Canopy is an open-source product, developed under the auspices of the [Open Source Labs](https://github.com/open-source-labs) tech accelerator. The core Canopy team comprises [Aaron Mazel-Gee](https://github.com/aaron1729), [Jenna Moon](https://github.com/unbiya), [Justin Paige](https://github.com/jhpaige), and [Vance McGrady](https://github.com/VanceMcGrady). 
 
 We welcome contributions of all kinds from the Svelte community: comments, questions, suggestions, bug reports, feature requests &mdash; and of course, additions to the codebase. Please feel free to contact us [here](mailto:canopy.for.svelte@gmail.com); we'd love to hear from you!
