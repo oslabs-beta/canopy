@@ -3,5 +3,18 @@
 /extension/sidebar-bundle-generator/node_modules/
 /extension/panel-bundle-generator/node_modules/
 /extension/src/node_modules/
+/extension/src/built/background.js
+/extension/src/built/background.js.map
+/extension/src/built/contentScript.js
+/extension/src/built/contentScript.js.map
+/extension/src/built/devtool.js
+/extension/src/built/devtool.js.map
+/extension/src/built/panelBundle.css
+/extension/src/built/panelBundle.js
+/extension/src/built/panelBundle.js.map
+/extension/src/built/sidebarBundle.css
+/extension/src/built/sidebarBundle.js
+/extension/src/built/sidebarBundle.js.map
+
 
 .DS_Store
