@@ -1,0 +1,5 @@
+- get extension to refresh when client refreshes
+
+- record Svelte component hierarchy logic in injected script and send to extension
+
+- smoother interoperability
