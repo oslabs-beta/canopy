@@ -1,6 +1,6 @@
 {
   "name": "Canopy",
-  "description": "A simple Chrome extension for Svelte developers",
+  "description": "A reinvented debugging solution for Svelte Developers",
   "version": "1.0",
   "manifest_version": 3, 
   "background": {
