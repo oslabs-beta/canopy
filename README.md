@@ -7,12 +7,12 @@
 Bonjour! Canopy is an extension of the Chrome devtools panel. To use it, you'll need to open a Svelte app in developer mode. (We've included one here too, in case you'd like to try Canopy straight out of the box &mdash; see the [Getting started](#getting-started) section below.)
 
 Canopy offers the following two features.
-* **A dynamically-updating component hierarchy tree.** This displays all instances of Svelte components that have been rendered, and automatically updates itself as components are created and destroyed.
+* **A dynamically-updating component visualizer.** This displays all instances of Svelte components that have been rendered, and automatically updates itself as components are created and destroyed.
 * **A time-traveling state tracker.** This lists all state values, and takes a snapshot upon each state change that can be revisited with the click of a button.
 
 1. [Getting started](#getting-started)
 2. [State tracker](#state-tracker)
-3. [Component tree](#component-tree)
+3. [Component visualizer](#component-visualizer)
 4. [Debugging](#debugging)
 5. [Contribute](#contribute)
 
@@ -57,13 +57,13 @@ Once you have opened your Svelte app in Chrome, go ahead and open the Chrome Dev
 
 Additionally, upon each state change Canopy takes a snapshot of all state values, and by clicking the corresponding button you can "time-travel" back to that state of your app. Each snapshot button is labeled by the state variable that was updated since the previous snapshot.
 
-## Component tree
+## Component visualizer
 
-In order to see the component tree, head to the "Elements" panel, and then open the "Svelte Component Tree" sidebar. (Note that this might actually be *below* your DOM tree, depending on your configurations.) You should see a tree depicting the hierarchy of Svelte components that comprise your app, as depicted below.
+In order to see the component visualizer, head to the "Elements" panel, and then open the "Svelte Components" sidebar. (Note that this might actually be *below* your DOM tree, depending on your configurations.) You should see a tree depicting the hierarchy of Svelte components that comprise your app, as depicted below.
 
 ![](componentvis.gif)
 
-This tree dynamically updates as components are created and destroyed, and you can hide/show the children of any node that has them (by clicking the adjacent -/+ button). Each node in the tree is labeled by its ID (which may be automatically assigned by Svelte) as well as the Svelte component of which it is an instance.
+This visualizer dynamically updates as components are created and destroyed, and you can hide/show the children of any node that has them (by clicking the adjacent -/+ button). Each node in the visualizer is labeled by its ID (which may be automatically assigned by Svelte) as well as the Svelte component of which it is an instance.
 
 
 ## Debugging
