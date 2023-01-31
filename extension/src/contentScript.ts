@@ -45,6 +45,7 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
         };
         // Adds event listener for 'SvelteRegisterComponent' (only in dev mode)
         window.document.addEventListener('SvelteRegisterComponent', (e) => {
+          // console.log(e.detail);
           components.push(e.detail.component);
         });
         // Sets timeout to save and dispatch state after svelte register component event listener added
@@ -66,6 +67,7 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
           components.forEach((component) => {
             currState.push([component, component.$capture_state(), component.constructor.name]);
           });
+          // console.log(currState);
           // only add to cache & send messages if any state has actually changed
           if (currState.some(checkIfChanged)) {
             // if cacheState is logner than the last index, we are back in time and should start a new branch
