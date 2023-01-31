@@ -49,7 +49,7 @@
 
 	// Sends current index to port when request sent
 	const sendCurrIndex = () => {
-		console.log('sending to PORT->', chromePort);
+		// console.log('sending to PORT->', chromePort);
 		chromePort.postMessage({ target: 'CANOPY', body: 'timeTravel', currentIndex: currIndex });
 	};
 
@@ -64,7 +64,7 @@
 
 	// Disconnects port and reassigns it to undefined when page left
 	onDestroy(() => {
-		console.log('panelDestroyed');
+		// console.log('panelDestroyed');
 		chromePort.disconnect();
 		chromePort = undefined;
 		chrome.runtime.reload();
@@ -85,7 +85,7 @@
                 if (curr[i][key] !== prev[i][key]) { //{}
                     let currState = curr[i][key];
                     let prevState = prev[i][key];
-                    console.log('currState: ', currState)
+                    // console.log('currState: ', currState)
 
                     for (const stateName in currState) {
                         let currStateName = currState[stateName];

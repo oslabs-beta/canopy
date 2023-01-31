@@ -46,11 +46,11 @@
 
 	// Activates on component mount
 	onMount(async () => {
-    console.log('sidebarMount');
-    console.log('preconnectPort', chromePort);
+    // console.log('sidebarMount');
+    // console.log('preconnectPort', chromePort);
 		// Connects page to port and injects script to page with injectScript command
 		chromePort = await chrome.runtime.connect({ name: "sidebar-port" });
-		console.log('currPort', chromePort);
+		// console.log('currPort', chromePort);
 		portMsgInit();
 		await injectScript();
 		// Posts time travel message with first state to get component views of first state
@@ -59,7 +59,7 @@
 
   // Disconnects port and reassigns it to undefined when page left
   onDestroy(() => {
-    console.log('sidebarDestroyed');
+    // console.log('sidebarDestroyed');
 		chromePort.disconnect();
 		chromePort = undefined;
     chrome.runtime.reload();
