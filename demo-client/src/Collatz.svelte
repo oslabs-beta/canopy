@@ -15,12 +15,6 @@
 
     function handleClick() {
 
-        // if (!isPositiveInt(currInt)) {
-        //     alert("Input must be a positive integer!");
-        //     currInt = defaultInt;
-        //     return;
-        // }
-
         currInt = Collatz(currInt);
 
         setTimeout(() => {
@@ -32,14 +26,6 @@
         
         return;
     }
-
-    // function handleInput(e) {
-    //     if (isPositiveInt(Number(e.target.value)) || !e.target.value) currInt = Number(e.target.value);
-    //     else {
-    //         alert("Input must be a positive integer!");
-    //         currInt = defaultInt;
-    //     }
-    // }
 
     function handleBlur(e) {
         if (!e.target.value) {
@@ -77,7 +63,6 @@
     <h1>3x+1 Tester</h1>
 
     <center>
-        <!-- on:input={handleInput} -->
         <input
             type="text"
             id="theInt"
