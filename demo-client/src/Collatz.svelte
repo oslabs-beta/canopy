@@ -60,9 +60,9 @@
 </script>
 
 <div>
-    <h1>3x+1 Tester</h1>
-
     <center>
+        <h2>3x+1 Tester</h2>
+        <h2>:</h2>
         <input
             type="text"
             id="theInt"
@@ -70,33 +70,36 @@
             size="8"
             value={currInt}
             on:blur={handleBlur}
-            />
+        />
     </center>
 
-    The (in)famous <em><strong><span class="definition">3x+1 conjecture</span></strong></em> predicts that if we start with <em>any</em> positive integer x and iteratively compute either 3x+1 if x is odd or x/2 if x is even, then we will <em>always</em> eventually arrive at the number 1.
+    <p>
+        The (in)famous <em><strong><span class="definition">3x+1 conjecture</span></strong></em> predicts that if we start with <em>any</em> positive integer x and iteratively compute either 3x+1 if x is odd or x/2 if x is even, then we will <em>always</em> eventually arrive at the number 1.
+    </p>
 
     <p/>
-
-    To test the conjecture, enter a positive integer (or use the default {defaultInt}) and then <button id="CollatzButton" on:click={handleClick}>run </button> the function!
-
+        To test the conjecture, enter a positive integer (or use the default {defaultInt}) and then
+        <button id="CollatzButton" on:click={handleClick}>Run</button>
+        the function!
     <p/>
 
     <small>
-    <button on:click={toggleInfo} id="toggleInfoButton">
-        {showText}
-    </button>
-
-    {#if showMoreInfo}
-        <br/>
-        The 3x+1 conjecture was proposed by Collatz in 1937 (and is also called the "Collatz conjecture"). To this day, it remains wide open &mdash; and widely regarded as extremely difficult! As of 2020, it has been computer-verified for all starting values up to 2<sup>68</sup>&thickapprox;2.95&times;10<sup>20</sup>. For even more information, see the
-        <a href="https://en.wikipedia.org/wiki/Collatz_conjecture" target="_blank">
-            wikipedia page
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
-                <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
-        </svg>
-        </a>.
-    {/if}
+        <button on:click={toggleInfo} id="toggleInfoButton">
+            {showText}
+        </button>
+        <div id="showMoreInfo">
+            {#if showMoreInfo}
+                <br/>
+                The 3x+1 conjecture was proposed by Collatz in 1937 (and is also called the "Collatz conjecture"). To this day, it remains wide open &mdash; and widely regarded as extremely difficult! As of 2020, it has been computer-verified for all starting values up to 2<sup>68</sup>&thickapprox;2.95&times;10<sup>20</sup>. For even more information, see the
+                <a href="https://en.wikipedia.org/wiki/Collatz_conjecture" target="_blank" rel="noreferrer">
+                    wikipedia page
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                        <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+                    </svg>
+                </a>.
+            {/if}
+        </div>
     </small>
 </div>
 
@@ -106,17 +109,49 @@
         background-color: rgb(249, 249, 249);
         text-align: center;
         font-size: 50px;
-        /* color: rgb(110, 135, 69); */
+        margin: 0px;
     }
     #CollatzButton {
-        padding: 2px;
+        padding: 5px;
         background-color: rgb(234, 234, 234);
+        margin: 10px;
     }
     #toggleInfoButton {
         padding: 2px;
+        margin: 10px;
         background-color: rgb(234, 234, 234);
+    }
+    #showMoreInfo {
+        display: block;
+        margin: 0px;
     }
     a {
         color: rgb(110, 135, 69)
+    }
+    center {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 400px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-bottom: 10px;
+    }
+    h2 {
+        width: fit-content;
+    }
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        margin: 20px;
+    }
+    small {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 </style>

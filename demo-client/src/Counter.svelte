@@ -16,11 +16,14 @@
 
 
 <style>
-    #counter-container{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 30px;
-        border: 1px solid black;
-        }
+  #counter-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px;
+    border: 1px solid black;
+  }
+  button {
+    margin: 20px;
+  }
 </style>
