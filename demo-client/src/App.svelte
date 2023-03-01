@@ -10,13 +10,28 @@
 
 <div>
 	<img src="Canopy.png" alt="Canopy" width="150" height="150">
-	<Counter/>
-	<!-- <List/> -->
-	<Slider/>
+	<div id="countSlide">
+		<Counter/>
+		<!-- <List/> -->
+		<Slider/>
+	</div>
 	<Collatz />
 </div>
 
 <style>
+	#countSlide {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin: 20px;
+	}
+
+	@media (max-width: 750px) {
+		#countSlide {
+			flex-direction: column;
+		}
+	}
+
 	img {
 		display: block;
 		margin: auto;
