@@ -22,7 +22,16 @@
     align-items: center;
     margin: 30px;
     border: 1px solid black;
+    min-width: 260px;
+    padding: 1rem;
+    height: 200px;
+    width: 40%;
   }
+  @media (max-width: 750px) {
+		#counter-container {
+			width: 80%;
+		}
+	}
   button {
     margin: 20px;
   }
